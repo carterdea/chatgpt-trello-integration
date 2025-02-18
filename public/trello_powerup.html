@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trello Power-Up</title>
+    <script src="https://p.trellocdn.com/power-up.min.js"></script>
+</head>
+<body>
+    <script>
+        var t = TrelloPowerUp.iframe();
+        t.board('id', 'name').then(function(board) {
+            console.log("Power-Up Loaded for Board: " + board.name);
+        });
+    </script>
+</body>
+</html>
