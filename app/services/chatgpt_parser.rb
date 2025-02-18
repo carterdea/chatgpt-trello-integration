@@ -1,6 +1,6 @@
 require 'openai'
 
-class ChatGPTParser
+class ChatgptParser
   def self.parse_ticket(message)
     client = OpenAI::Client.new(access_token: ENV['OPENAI_API_KEY'])
 
