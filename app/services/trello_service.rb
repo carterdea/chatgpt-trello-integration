@@ -2,6 +2,18 @@ require 'active_support/inflector/transliterate' # Needed for accent removal
 require 'fuzzy_match'
 require 'httparty'
 
+LIST_MAPPINGS = {
+  "On Hold/Backlog" => "6413b12ddd0200ded879904f",
+  "Needs Design" => "60ec976db7a27c15f456a442",
+  "Design In Progress" => "6442eb26aa4e103b7e71de51",
+  "Design Ready for Review" => "646c08e063e0bd2ea9add8ce",
+  "Ready for Development" => "60ec97585607b146f583c8bc",
+  "Development in Progress" => "60ec975dcf0d1a6599970e80",
+  "Ready for Testing" => "60ec9765fe4c8302f2af3360",
+  "Ready for Release" => "645423ae58c8016ad550f185",
+  "Shipped" => "6789509de06fd755163cfb01"
+}
+
 class TrelloService
   include HTTParty
   base_uri 'https://api.trello.com/1'
@@ -53,12 +65,22 @@ class TrelloService
 
   private
 
-  def get_list_id(column_name)
-    response = self.class.get("/boards/#{@board_id}/lists", query: @auth)
-    return nil unless response.success?
 
-    lists = response.parsed_response.map { |l| [l['name'].strip.downcase, l['id']] }.to_h
-    lists[column_name.strip.downcase] || nil
+  def get_list_id(column_name)
+    # Normalize list names for better matching
+    list_names = LIST_MAPPINGS.keys.map(&:downcase)
+    matcher = FuzzyMatch.new(list_names)
+    
+    best_match = matcher.find(column_name.downcase.strip)
+    list_id = LIST_MAPPINGS[best_match]
+
+    if list_id
+      Rails.logger.info "✅ Fuzzy Matched List: '#{column_name}' → '#{best_match}' (#{list_id})"
+      list_id
+    else
+      Rails.logger.error "❌ Column '#{column_name}' not found in Trello"
+      nil
+    end
   end
 
   def get_member_id(assignee)
