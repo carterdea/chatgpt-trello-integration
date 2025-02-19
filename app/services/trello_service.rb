@@ -48,7 +48,16 @@ class TrelloService
 
     Rails.logger.info "📤 Trello API Response: #{response.body}"
 
-    return { error: "Failed to create card" } unless response.success?
+    
+    if response.success?
+      ticket_id = response.parsed_response["id"]
+      ticket_url = response.parsed_response["shortUrl"]
+      Rails.logger.info "✅ Trello Card Created: #{ticket_url}"
+      { ticket_id: ticket_id, ticket_url: ticket_url }
+    else
+      Rails.logger.error "❌ Trello Card Creation Failed: #{response.body}"
+      { error: response.body }
+    end
 
     card_data = response.parsed_response
     {
