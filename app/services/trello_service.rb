@@ -141,6 +141,8 @@ class TrelloService
   def upload_attachment(card_id, image_url)
     return unless card_id && image_url
 
+    Rails.logger.info "📤 Uploading image to Trello: #{image_url}"
+
     response = self.class.post("/cards/#{card_id}/attachments", query: @auth.merge({
       url: image_url,
       name: "Screenshot"
