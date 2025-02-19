@@ -63,16 +63,13 @@ class TrelloService
     }
   end
 
-  private
-
-
   def get_list_id(column_name)
-    # Normalize list names for better matching
     list_names = LIST_MAPPINGS.keys.map(&:downcase)
     matcher = FuzzyMatch.new(list_names)
     
     best_match = matcher.find(column_name.downcase.strip)
-    list_id = LIST_MAPPINGS[best_match]
+    list_id = LIST_MAPPINGS[LIST_MAPPINGS.keys.find { |k| k.downcase.strip == best_match }]
+
 
     if list_id
       Rails.logger.info "✅ Fuzzy Matched List: '#{column_name}' → '#{best_match}' (#{list_id})"
