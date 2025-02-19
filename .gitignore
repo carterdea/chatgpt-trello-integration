@@ -11,7 +11,7 @@
 /tmp/
 
 # Used by dotenv library to load environment variables.
-# .env
+.env
 
 # Ignore Byebug command history file.
 .byebug_history
@@ -63,9 +63,6 @@ build-iPhoneSimulator/
 
 # Ignore bundler config.
 /.bundle
-
-# Ignore all environment files.
-/.env*
 
 # Ignore all logfiles and tempfiles.
 /log/*
