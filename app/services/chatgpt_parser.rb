@@ -17,6 +17,7 @@ class ChatgptParser
         "label": "MUST BE one of the following: ['New Era Cap', 'New Era', 'House of Noa', 'Momentary Ink', 'BLOCKED', 'MiniLuxe', 'Granarly', 'North Star', 'Reeis', 'Wildlike', 'Toto Foods', 'Texas True Threads', 'Stussy', 'Buffalo Market', 'Ahh Gave', 'Piano Technician Academy', 'Bonjour Fête', 'G-Form', 'Stillwell Pianos', 'Eternal Water', 'Essential Hair Academy', 'Welle Brand', 'Flower Shop', 'Krystal Labs', 'Sport Drink', 'American Threads']. If no exact match, return 'General'.",
         "assignee": "Person responsible for the task (default: 'Unassigned')",
         "column": "The Trello board column, e.g., 'Needs Design/Backlog', 'Development In Progress', 'Needs Design', if none specified, use 'Ready for Development'"
+        "zight_url": "If a Zight link is included, extract the URL (e.g., "https://share.zight.com/P8uKrgYE"). Otherwise, return null."
       }
       **Rules:**
       - `"title"`: Must be **10 words or less**, summarizing the request.

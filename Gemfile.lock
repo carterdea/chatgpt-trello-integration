@@ -331,6 +331,7 @@ DEPENDENCIES
   fuzzy_match
   httparty (~> 0.22.0)
   kamal
+  nokogiri
   puma (>= 5.0)
   rails (~> 8.0.1)
   rubocop-rails-omakase

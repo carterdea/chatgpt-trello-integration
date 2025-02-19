@@ -53,3 +53,5 @@ gem "dotenv", "~> 3.1"
 
 gem 'ruby-openai', '~> 7.4'
 gem 'fuzzy_match'
+
+gem 'nokogiri'

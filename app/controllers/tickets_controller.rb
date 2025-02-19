@@ -25,6 +25,21 @@ class TicketsController < ApplicationController
     else
       logger.info "Ticket successfully created: #{result[:ticket_url]}"
       render json: result
+
+      # ✅ Extract the Zight URL from parsed_ticket
+      zight_url = parsed_ticket["zight_url"]
+
+      if zight_url
+        logger.info "📸 Zight URL detected: #{zight_url}"
+        image_url = ZightService.extract_image(zight_url)
+
+        if image_url
+          logger.info "✅ Extracted image URL: #{image_url}"
+          trello_service.upload_attachment(result[:ticket_id], image_url)
+        else
+          logger.error "❌ Failed to extract image from Zight URL."
+        end
+      end
     end
   end
 end
