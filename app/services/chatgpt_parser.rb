@@ -14,7 +14,7 @@ class ChatgptParser
       {
         "title": "SHORT, clear summary of what is being asked for",
         "description": "Detailed explanation with expected behavior, client expectations, or steps to reproduce a bug",
-        "label": "MUST BE one of the following: ['New Era Cap', 'New Era', 'House of Noa', 'Momentary Ink', 'BLOCKED', 'MiniLuxe', 'Granarly', 'North Star', 'Reeis', 'Wildlike', 'Toto Foods', 'Texas True Threads', 'Stussy', 'Buffalo Market', 'Ahh Gave', 'Piano Technician Academy', 'Bonjour Fête', 'G-Form', 'Stillwell Pianos', 'Eternal Water', 'Ellis Hill', 'Essential Hair Academy', 'Welle Brand', 'Flower Shop', 'Krystal Labs', 'Sport Drink', 'American Threads']. If no exact match, return 'General'.",
+        "label": "MUST BE one of the following: ['New Era Cap', 'New Era', 'House of Noa', 'Momentary Ink', 'BLOCKED', 'MiniLuxe', 'Granarly', 'North Star', 'Reeis', 'Wildlike', 'Toto Foods', 'Texas True Threads', 'Stussy', 'Buffalo Market', 'Ahh Gave', 'Piano Technician Academy', 'Bonjour Fête', 'G-Form', 'Stillwell Pianos', 'Eternal Water', 'Essential Hair Academy', 'Welle Brand', 'Flower Shop', 'Krystal Labs', 'Sport Drink', 'American Threads']. If no exact match, return 'General'.",
         "assignee": "Person responsible for the task (default: 'Unassigned')",
         "column": "The Trello board column, e.g., 'Backlog', 'Development In Progress', 'Needs Design'"
       }
