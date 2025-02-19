@@ -137,4 +137,21 @@ class TrelloService
     Rails.logger.warn "⚠️ No match found for label '#{label_name}'"
     nil
   end
+
+  def upload_attachment(card_id, image_url)
+    return unless card_id && image_url
+
+    response = self.class.post("/cards/#{card_id}/attachments", query: @auth.merge({
+      url: image_url,
+      name: "Screenshot"
+    }))
+
+    if response.success?
+      Rails.logger.info "✅ Image uploaded to Trello: #{response.parsed_response["url"]}"
+      response.parsed_response["url"]
+    else
+      Rails.logger.error "❌ Failed to upload image to Trello: #{response.body}"
+      nil
+    end
+  end
 end

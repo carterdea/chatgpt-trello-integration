@@ -10,11 +10,8 @@ class ZightService
       html = URI.open(zight_url).read
       doc = Nokogiri::HTML(html)
 
-      # Find the primary image using its `data-testid` attribute
-      image_node = doc.at_css('img[data-testid="viewer-content-image"]')
-
-      # Extract the image URL
-      image_url = image_node['src'] if image_node
+      image_node = doc.at_css('meta[property="og:image"]')
+      image_url = image_node['content'] if image_node
 
       if image_url
         Rails.logger.info "✅ Extracted Zight Image URL: #{image_url}"
