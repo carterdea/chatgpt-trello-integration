@@ -51,4 +51,5 @@ end
 gem "httparty", "~> 0.22.0"
 gem "dotenv", "~> 3.1"
 
-gem "openai", "~> 0.3.0"
+gem 'ruby-openai', '~> 7.4'
+gem 'fuzzy_match'

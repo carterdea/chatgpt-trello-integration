@@ -12,9 +12,9 @@ class TicketsController < ApplicationController
 
     trello_service = TrelloService.new
     result = trello_service.create_card(
-      parsed_ticket["client"],
       parsed_ticket["title"],
       parsed_ticket["description"],
+      parsed_ticket["label"],
       parsed_ticket["assignee"],
       parsed_ticket["column"]
     )

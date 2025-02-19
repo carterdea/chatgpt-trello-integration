@@ -97,9 +97,19 @@ GEM
     erubi (1.13.1)
     et-orbi (1.2.11)
       tzinfo
+    event_stream_parser (1.0.0)
+    faraday (2.12.2)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
+    faraday-multipart (1.1.0)
+      multipart-post (~> 2.0)
+    faraday-net_http (3.4.0)
+      net-http (>= 0.5.0)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
+    fuzzy_match (2.1.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     httparty (0.22.0)
@@ -142,6 +152,9 @@ GEM
     msgpack (1.8.0)
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
+    multipart-post (2.4.1)
+    net-http (0.6.0)
+      uri
     net-imap (0.5.6)
       date
       net-protocol
@@ -163,7 +176,6 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.2-x86_64-linux-gnu)
       racc (~> 1.4)
-    openai (0.3.0)
     ostruct (0.6.1)
     parallel (1.26.3)
     parser (3.3.7.1)
@@ -255,6 +267,10 @@ GEM
       rubocop-minitest
       rubocop-performance
       rubocop-rails
+    ruby-openai (7.4.0)
+      event_stream_parser (>= 0.3.0, < 2.0.0)
+      faraday (>= 1)
+      faraday-multipart (>= 1)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
     solid_cable (3.0.7)
@@ -312,12 +328,13 @@ DEPENDENCIES
   brakeman
   debug
   dotenv (~> 3.1)
+  fuzzy_match
   httparty (~> 0.22.0)
   kamal
-  openai (~> 0.3.0)
   puma (>= 5.0)
   rails (~> 8.0.1)
   rubocop-rails-omakase
+  ruby-openai (~> 7.4)
   solid_cable
   solid_cache
   solid_queue
