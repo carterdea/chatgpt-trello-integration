@@ -48,7 +48,7 @@ end
 
 
 
-gem "httparty", "~> 0.22.0"
+gem "httparty", "~> 0.23.1"
 gem "dotenv", "~> 3.1"
 
 gem 'ruby-openai', '~> 7.4'
