@@ -19,6 +19,16 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Verify patched Ruby runtime
+        run: |
+          ruby -rrubygems <<'RUBY'
+          minimums = { "3.3" => "3.3.13", "3.4" => "3.4.12", "4.0" => "4.0.9" }
+          series = RUBY_VERSION.split(".").first(2).join(".")
+          minimum = minimums[series]
+          patched = minimum && Gem::Version.new(RUBY_VERSION) >= Gem::Version.new(minimum)
+          abort "Ruby runtime lacks the October 2026 Regexp fixes" unless patched
+          RUBY
+
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
 
