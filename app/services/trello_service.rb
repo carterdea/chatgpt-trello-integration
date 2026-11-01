@@ -1,6 +1,6 @@
-require 'active_support/inflector/transliterate' # Needed for accent removal
-require 'fuzzy_match'
-require 'httparty'
+require "active_support/inflector/transliterate" # Needed for accent removal
+require "fuzzy_match"
+require "httparty"
 
 LIST_MAPPINGS = {
   "On Hold/Backlog" => "6413b12ddd0200ded879904f",
@@ -16,11 +16,11 @@ LIST_MAPPINGS = {
 
 class TrelloService
   include HTTParty
-  base_uri 'https://api.trello.com/1'
+  base_uri "https://api.trello.com/1"
 
   def initialize
-    @auth = { key: ENV['TRELLO_API_KEY'], token: ENV['TRELLO_TOKEN'] }
-    @board_id = ENV['TRELLO_BOARD_ID']
+    @auth = { key: ENV["TRELLO_API_KEY"], token: ENV["TRELLO_TOKEN"] }
+    @board_id = ENV["TRELLO_BOARD_ID"]
     @mappings = YAML.load_file(Rails.root.join("config", "trello_mappings.yml"))
   end
 
@@ -42,13 +42,13 @@ class TrelloService
       idList: list_id,
       name: "#{title}",
       desc: description,
-      idLabels: label_id ? [label_id] : [],
-      idMembers: member_id ? [member_id] : []
+      idLabels: label_id ? [ label_id ] : [],
+      idMembers: member_id ? [ member_id ] : []
     }))
 
     Rails.logger.info "📤 Trello API Response: #{response.body}"
 
-    
+
     if response.success?
       ticket_id = response.parsed_response["id"]
       ticket_url = response.parsed_response["shortUrl"]
@@ -61,7 +61,7 @@ class TrelloService
 
     card_data = response.parsed_response
     {
-      ticket_url: card_data['shortUrl'],
+      ticket_url: card_data["shortUrl"],
       details: {
         title: title,
         description: description,
@@ -75,7 +75,7 @@ class TrelloService
   def get_list_id(column_name)
     list_names = LIST_MAPPINGS.keys.map(&:downcase)
     matcher = FuzzyMatch.new(list_names)
-    
+
     best_match = matcher.find(column_name.downcase.strip)
     list_id = LIST_MAPPINGS[LIST_MAPPINGS.keys.find { |k| k.downcase.strip == best_match }]
 
@@ -95,7 +95,7 @@ class TrelloService
     Rails.logger.info "🔍 Searching for Member: '#{assignee}'"
 
     normalized_assignee = ActiveSupport::Inflector.transliterate(assignee).strip.downcase
-    normalized_members = @mappings["members"].transform_keys { |name| 
+    normalized_members = @mappings["members"].transform_keys { |name|
       ActiveSupport::Inflector.transliterate(name).strip.downcase
     }
 
@@ -124,7 +124,7 @@ class TrelloService
     Rails.logger.info "🔍 Searching for Label: '#{label_name}'"
 
     normalized_label = ActiveSupport::Inflector.transliterate(label_name).strip.downcase
-    normalized_labels = @mappings["labels"].transform_keys { |name| 
+    normalized_labels = @mappings["labels"].transform_keys { |name|
       ActiveSupport::Inflector.transliterate(name).strip.downcase
     }
 

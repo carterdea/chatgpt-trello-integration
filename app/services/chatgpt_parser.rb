@@ -1,13 +1,13 @@
-require 'openai'
+require "openai"
 
 class ChatgptParser
   def self.parse_ticket(message)
-    client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY')) # ruby-openai expects `access_token`
+    client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY")) # ruby-openai expects `access_token`
 
     prompt = <<~PROMPT
       Extract structured data from the following message about creating a project management ticket.
 
-      **User Message:**  
+      **User Message:**\s\s
       "#{message}"
 
       **Return JSON ONLY in this exact structure (NO extra text or explanations):**
@@ -29,12 +29,12 @@ class ChatgptParser
     response = client.chat(
       parameters: {
         model: "gpt-4", # Use GPT-4 for better accuracy
-        messages: [{ role: "user", content: prompt }],
+        messages: [ { role: "user", content: prompt } ],
         temperature: 0.2
       }
     )
 
-    
+
     raw_response = response["choices"][0]["message"]["content"] rescue nil
     Rails.logger.info "🤖 Raw ChatGPT Response: #{raw_response.inspect}"
 

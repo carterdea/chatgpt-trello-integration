@@ -1,5 +1,5 @@
-require 'nokogiri'
-require 'open-uri'
+require "nokogiri"
+require "open-uri"
 
 class ZightService
   def self.extract_image(zight_url)
@@ -11,7 +11,7 @@ class ZightService
       doc = Nokogiri::HTML(html)
 
       image_node = doc.at_css('meta[property="og:image"]')
-      image_url = image_node['content'] if image_node
+      image_url = image_node["content"] if image_node
 
       if image_url
         Rails.logger.info "✅ Extracted Zight Image URL: #{image_url}"
